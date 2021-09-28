@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: webserver
+    app.kubernetes.io/part-of: webserver
+  name: webserver
+  namespace: default
+spec:
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - interval: 15s
+    port: http
+    path: /metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: webserver
